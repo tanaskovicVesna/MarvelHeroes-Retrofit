@@ -17,8 +17,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.menu.assignment.retrofitdemo.model.Image;
-import com.menu.assignment.retrofitdemo.network.APIclient;
-import com.menu.assignment.retrofitdemo.network.APIinterface;
+import com.menu.assignment.retrofitdemo.network.API;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +25,8 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -41,8 +42,14 @@ public class MainActivity extends AppCompatActivity {
         gridView = findViewById(R.id.gridView);
         imageList = new ArrayList<>();
 
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(API.BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        API api = retrofit.create(API.class);
+
         //make network call
-        Call<List<Image>> call = APIclient.apIinterface().getImages();
+        Call<List<Image>> call = api.getImages();
         call.enqueue(new Callback<List<Image>>() {
             @Override
             public void onResponse(Call<List<Image>> call, Response<List<Image>> response) {
@@ -50,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
 
                    imageList = response.body();
 
-                   customAdapter = new CustomAdapter(response.body(),MainActivity.this);
+                   customAdapter = new CustomAdapter(imageList,getApplicationContext());
                    gridView.setAdapter(customAdapter);
                    gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                        @Override

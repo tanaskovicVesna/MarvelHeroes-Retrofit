@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "com.menu.assignment.retrofitdemo"
-        minSdkVersion 26
+        minSdkVersion 23
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
@@ -30,11 +30,12 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     //retrofit library
-    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:retrofit:2.3.0'
     //gson
-    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.2.0'
     //glide
     implementation 'com.github.bumptech.glide:glide:4.11.0'
+
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
 
 }
